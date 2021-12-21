@@ -1,0 +1,13 @@
+﻿@using WebAppAspNetMvcGrid.Models
+@model Book
+
+<h3>Книга</h3>
+
+@using (Html.BeginForm("Edit", "Books", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary()
+    @Html.EditorForModel()
+
+    <input type="submit" value="Сохранить" class="btn btn-primary" />
+    @Html.ActionLink("Отменить", "Index", "Books", null, new { @class = "btn btn-danger" })
+}

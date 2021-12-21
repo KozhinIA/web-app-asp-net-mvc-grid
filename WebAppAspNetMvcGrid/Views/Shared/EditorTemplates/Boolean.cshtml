@@ -1,0 +1,14 @@
+﻿@{
+    bool? value = null;
+    if (ViewData.Model != null)
+    {
+        value = Convert.ToBoolean(ViewData.Model, System.Globalization.CultureInfo.InvariantCulture);
+    }
+}
+
+<div class="form-check">
+    <input class="form-check-input" name="@ViewData.TemplateInfo.HtmlFieldPrefix" type="checkbox" value="@(value ?? false)" >
+    <label class="form-check-label">
+        @ViewData.ModelMetadata.DisplayName
+    </label>
+</div>

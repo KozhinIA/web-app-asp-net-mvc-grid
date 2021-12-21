@@ -1,0 +1,24 @@
+﻿@using WebAppAspNetMvcGrid.Models
+@using Common.Models
+@model IQueryable<Language>
+@{
+    string controllerName = "Languages";
+}
+<h3>Языки</h3>
+
+@Html.ActionLink("Добавить запись", "Create", controllerName, null, new { @class = "btn btn-primary" })
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.Name).Titled("Название");
+
+        columns.Add(model => Html.Partial("GridCellAction", new GridCellActionViewModel() {Id = model.Id, ControllerName = controllerName })).Css("grid-cell-action").Titled("Действия");
+    })
+    .UsingFilterMode(GridFilterMode.Row)
+    .Empty("No data found")
+    .Filterable()
+    .Sortable()
+    .Pageable()
+)

@@ -1,0 +1,12 @@
+﻿@using WebAppAspNetMvcGrid.Models
+@model Genre
+
+<h3>Жанр</h3>
+
+@using (Html.BeginForm("Create", "Genres", FormMethod.Post))
+{
+    @Html.EditorForModel()
+
+    <input type="submit" value="Сохранить" class="btn btn-primary" />
+    @Html.ActionLink("Отменить", "Index", "Genres", null, new { @class = "btn btn-danger" })
+}

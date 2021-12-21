@@ -1,0 +1,13 @@
+﻿@{
+    Dictionary<string, object> attributes = new Dictionary<string, object>();
+    attributes["class"] = "form-control";
+    attributes["rows"] = "6";
+
+    var validators = ModelValidatorProviders.Providers.GetValidators(ViewData.ModelMetadata, ViewContext);
+    ModelClientValidationRule rule = validators.SelectMany(v => v.GetClientValidationRules()).FirstOrDefault(m => m.ValidationType == "stringLength");
+    if (rule != null && rule.ValidationParameters.ContainsKey("maximumLength"))
+    {
+        attributes["maxlength"] = rule.ValidationParameters["maximumLength"];
+    }
+}
+@Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue.ToString(), 6, 1, attributes)

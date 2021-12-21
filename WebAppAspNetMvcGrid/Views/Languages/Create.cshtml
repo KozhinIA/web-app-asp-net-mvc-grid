@@ -1,0 +1,12 @@
+﻿@using WebAppAspNetMvcGrid.Models
+@model Language
+
+<h3>Язык</h3>
+
+@using (Html.BeginForm("Create", "Languages", FormMethod.Post))
+{
+    @Html.EditorForModel()
+
+    <input type="submit" value="Сохранить" class="btn btn-primary" />
+    @Html.ActionLink("Отменить", "Index", "Languages", null, new { @class = "btn btn-danger" })
+}

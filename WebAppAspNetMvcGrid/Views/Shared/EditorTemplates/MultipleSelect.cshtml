@@ -1,0 +1,30 @@
+﻿@using Common.Attributes
+@model IEnumerable<SelectListItem>
+
+
+@{
+    var targetProperty = this.ViewData.ModelMetadata.PropertyName;
+    var targetPropertyAttribute = this.ViewData.ModelMetadata.ContainerType.GetProperty(this.ViewData.ModelMetadata.PropertyName).GetCustomAttributes(typeof(TargetPropertyAttribute), true);
+    if (targetPropertyAttribute.Any())
+    {
+        targetProperty = ((TargetPropertyAttribute)targetPropertyAttribute.First()).TargetProperty;
+    }
+}
+@{
+    if (Model != null && Model.Any())
+    {
+        foreach (var option in Model)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="@targetProperty" value="@option.Value" @(option.Selected ? "checked" : "")>
+                <label class="form-check-label">
+                    @option.Text
+                </label>
+            </div>
+        }
+    }
+    else
+    {
+        <label>Нет элементов в списке</label>
+    }
+}

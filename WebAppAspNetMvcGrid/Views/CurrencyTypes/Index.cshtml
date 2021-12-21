@@ -1,0 +1,27 @@
+﻿@using WebAppAspNetMvcGrid.Models
+@using Common.Models
+@model IQueryable<CurrencyType>
+@{
+    string controllerName = "CurrencyTypes";
+}
+<h3>Типы валют</h3>
+
+
+@Html.ActionLink("Добавить запись", "Create", controllerName, null, new { @class = "btn btn-primary" })
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.Name).Titled("Название");
+        columns.Add(model => model.LetterCode).Titled("Буквенный код");
+        columns.Add(model => model.NumericCode).Titled("Числовой код");
+
+        columns.Add(model => Html.Partial("GridCellAction", new GridCellActionViewModel() {Id = model.Id, ControllerName = controllerName })).Css("grid-cell-action").Titled("Действия");
+    })
+    .UsingFilterMode(GridFilterMode.Row)
+    .Empty("No data found")
+    .Filterable()
+    .Sortable()
+    .Pageable()
+)

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Библиотека</title>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li>
+                        <a href="/Books" class="nav-link">Книги</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Authors" class="nav-link">Авторы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Genres" class="nav-link">Жанры</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/CurrencyTypes" class="nav-link">Типы валют</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Languages" class="nav-link">Языки</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <script>
+        [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+                           new MvcGrid(element);
+                      });
+    </script>
+</body>
+</html>

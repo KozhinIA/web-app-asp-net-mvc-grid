@@ -1,0 +1,31 @@
+﻿@using WebAppAspNetMvcGrid.Models
+@using Common.Models
+@model IQueryable<Book>
+@{
+    string controllerName = "Books";
+}
+
+<h3>Книги</h3>
+
+@Html.ActionLink("Добавить запись", "Create", controllerName, null, new { @class = "btn btn-primary" })
+
+
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => string.Format("<img src='/{0}/GetImage/{1}' style='max-width: 100px; max-height: 200px;' />", controllerName, model.Id)).Encoded(false).Titled("Обложка");
+        columns.Add(model => string.Format("<a href='/{0}/Detail/{1}' class='text-decoration-none'>{2}</a>", controllerName, model.Id, model.Name)).Encoded(false).Titled("Название");
+        columns.Add(model => string.Join(", ", model.Authors.Select(x => $"{x.LastName} {x.FirestName}"))).Titled("Автор(ы)");
+        columns.Add(model => model.Isbn).Titled("ISBN");
+        columns.Add(model => model.Year).Titled("Год издания книги");
+
+        columns.Add(model => Html.Partial("GridCellAction", new GridCellActionViewModel() {Id = model.Id, ControllerName = controllerName })).Css("grid-cell-action").Titled("Действия");
+    })
+    .UsingFilterMode(GridFilterMode.Row)
+    .Empty("No data found")
+    .Filterable()
+    .Sortable()
+    .Pageable()
+)

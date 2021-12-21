@@ -1,0 +1,12 @@
+﻿@using WebAppAspNetMvcGrid.Models
+@model Author
+
+<h3>Автор</h3>
+
+@using (Html.BeginForm("Create", "Authors", FormMethod.Post))
+{
+    @Html.EditorForModel()
+
+    <input type="submit" value="Сохранить" class="btn btn-primary" />
+    @Html.ActionLink("Отменить", "Index", "Authors", null, new { @class = "btn btn-danger" })
+}

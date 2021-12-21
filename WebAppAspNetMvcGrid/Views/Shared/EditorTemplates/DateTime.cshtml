@@ -1,0 +1,13 @@
+﻿@{
+    Dictionary<string, object> attributes = new Dictionary<string, object>();
+    attributes["class"] = "form-control";
+
+    string res = string.Empty;
+
+    if (ViewData.Model != null && (DateTime)ViewData.Model > DateTime.MinValue)
+    {
+        var local = (DateTime)ViewData.Model.ToLocalTime();
+        res = local.ToString("dd.MM.yyyy");
+    }
+}
+@Html.TextBox("", res, attributes)

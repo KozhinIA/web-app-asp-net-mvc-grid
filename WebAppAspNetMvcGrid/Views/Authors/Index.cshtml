@@ -1,0 +1,30 @@
+﻿@using WebAppAspNetMvcGrid.Models
+@using Common.Models
+@model IQueryable<Author>
+@{
+    string controllerName = "Authors";
+}
+
+<h3>Авторы</h3>
+
+@Html.ActionLink("Добавить запись", "Create", controllerName, null, new { @class = "btn btn-primary" })
+
+
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.FirestName).Titled("Имя");
+        columns.Add(model => model.LastName).Titled("Фамилия");
+        columns.Add(model => model.Gender).Titled("Пол");
+        columns.Add(model => model.Birthday.HasValue ? model.Birthday.Value.ToString("dd-MM-yyyy") : "-").Titled("День рождения");
+
+        columns.Add(model => Html.Partial("GridCellAction", new GridCellActionViewModel() {Id = model.Id, ControllerName = controllerName })).Css("grid-cell-action").Titled("Действия");
+    })
+    .UsingFilterMode(GridFilterMode.Row)
+    .Empty("No data found")
+    .Filterable()
+    .Sortable()
+    .Pageable()
+)

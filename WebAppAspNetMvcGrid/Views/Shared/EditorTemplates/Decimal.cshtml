@@ -1,0 +1,19 @@
+﻿@functions{
+    private object ModelValue
+    {
+        get
+        {
+            if (ViewData.TemplateInfo.FormattedModelValue == ViewData.ModelMetadata.Model)
+            {
+                return String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:0.00}", ViewData.ModelMetadata.Model);
+            }
+            return ViewData.TemplateInfo.FormattedModelValue;
+        }
+    }
+}
+@{
+    Dictionary<string, object> attributes = new Dictionary<string, object>();
+    attributes["class"] = "form-control";
+    attributes["maxlength"] = "20";
+    }
+@Html.TextBox("", ModelValue, attributes)
